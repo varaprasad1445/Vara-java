@@ -36,6 +36,9 @@ public class Addition {
 	public static void main(String [] args){
 		Addition dd = new Addition();
 		System.out.println("we are callng this" +" "  + dd.sub(10,5));
+		
+		dd.chupinchu();
+		
 	}
 	
 }
