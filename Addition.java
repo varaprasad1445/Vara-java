@@ -3,6 +3,7 @@ public class Addition {
 	
 	
 	public String c;
+	public String w;
 
 	public int add(int a, int b){
 		return a+b;
