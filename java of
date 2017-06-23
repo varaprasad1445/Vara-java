@@ -1,0 +1,62 @@
+package com.barclaycardus.webapps.apitests;
+
+import com.barclaycardus.apiobjects.responseProxy.AccountClosureResponse;
+import com.barclaycardus.apiutils.ApplicationUtils;
+import com.barclaycardus.apiutils.jsonManuplations.jsonConversion;
+import com.barclaycardus.apiutils.serviceCall.restServiceCall;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by akaul on 5/2/2016.
+ */
+public class AccountClosureServiceTest {
+
+    String baseServiceUrl = "https://qa01-osc.barclaycardus.com/customercaregatewayservice/";
+
+    @Test
+    public void testAccountClosureServiceForPrimaryUser() throws Exception {
+        String accountNumber = "5156650000268568";
+        jsonConversion converter = new jsonConversion();
+        restServiceCall callSer = new restServiceCall();
+
+        String sessionId = ApplicationUtils.getSessionId(callSer);
+        ApplicationUtils.setContextData(accountNumber, sessionId);
+
+        Map<String, String> map= new HashMap<>();
+        map.put("Content-Type", "application/json;charset=UTF-8");
+        map.put("Accept", "*/*");
+        map.put("Cookie", "JSESSIONID=" + sessionId);
+        String serviceurl = baseServiceUrl+ "accountclosure/close";
+        String getResponse = callSer.callService(serviceurl, "GET", map, "");
+        AccountClosureResponse accountClosureResponse = converter.convertJsonToObject(getResponse, AccountClosureResponse.class);
+        Assert.assertNotNull(accountClosureResponse);
+        Assert.assertNotNull( accountClosureResponse.response);
+    }
+
+
+    @Test
+    public void testAccountClosureServiceForCoAppUser() throws Exception {
+        String accountNumber = "5466388400656885";
+        jsonConversion converter = new jsonConversion();
+        restServiceCall callSer = new restServiceCall();
+
+        String sessionId = ApplicationUtils.getSessionId(callSer);
+        ApplicationUtils.setContextData(accountNumber, sessionId);
+
+        Map<String, String> map= new HashMap<>();
+        map.put("Content-Type", "application/json;charset=UTF-8");
+        map.put("Accept", "*/*");
+        map.put("Cookie", "JSESSIONID=" + sessionId);
+        String serviceurl = baseServiceUrl+ "accountclosure/close";
+        String getResponse = callSer.callService(serviceurl, "GET", map, "");
+        AccountClosureResponse accountClosureResponse = converter.convertJsonToObject(getResponse, AccountClosureResponse.class);
+        Assert.assertNotNull(accountClosureResponse);
+        Assert.assertNotNull( accountClosureResponse.response);
+    }
+}
+;
