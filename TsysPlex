@@ -1,0 +1,64 @@
+/**
+ * 
+ */
+package com.barclaycardus.plex;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.barclaycardus.UI.fixtures.common.BaseFixture;
+import com.testframework.errors.FixtureError;
+import com.testframework.web.ui.UIDriver;
+
+/**
+ * @author vdeshpande
+ *
+ */
+public class AccountStatusTileFixture extends BaseFixture {
+
+	private AccountStatusTilePage accountStatusPage;
+	UIDriver driver;
+	protected AccountStatusTileFixture(UIDriver driver) {
+		super(driver);
+		this.driver = driver;
+		
+	}
+
+	protected AccountStatusTilePage getAccountStatusPage() throws Exception{
+		if(accountStatusPage == null){
+			accountStatusPage = new AccountStatusTilePage(driver);
+		}
+		return accountStatusPage;
+	}
+
+	public List<String> getAllAccountFlags() throws Exception {
+		List<String> flag = new ArrayList<String>();
+		
+		for(WebElement flags : getAccountStatusPage().getAllFlagElements() ){
+			flag.add(flags.getText());
+		}
+		return flag;
+		
+	}
+
+	public String getFieldValue(String arg1) throws FixtureError, Exception {
+		return getAccountStatusPage().getElementValue(arg1).getText();
+		
+	}
+	
+	public boolean getPoliciesIcon() throws Exception, Exception {
+		return getAccountStatusPage().getPoliciesIcon().isElementVisible();
+		
+	}
+
+	public List<String> getAllAccountStatus() throws Exception {
+		List<String> status = new ArrayList<String>();
+		
+		for(WebElement statuss : getAccountStatusPage().getAllStatusElements() ){
+			status.add(statuss.getText());
+		}
+		return status;
+	}
+}
